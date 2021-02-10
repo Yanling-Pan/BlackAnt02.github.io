@@ -1,0 +1,74 @@
+$(function(){
+    $(document).on('click','.login-top .head-img',function(e){
+        e.stopPropagation();
+        if($('.login-top .head-img div').css("display")=="block"){
+        	$('.login-top .head-img .logout').slideUp();
+        }else{
+        	$('.login-top .head-img .logout').slideDown();
+        }
+        
+    })
+
+    $('.login-top .head-img .logout').click(function(e){
+        e.stopPropagation();
+        $('.login-top .head-img .logout').slideUp();
+    })
+
+    $(document).on('click', function () {
+        $('.login-top .head-img .logout').slideUp();
+    })
+
+    $(document).on('click','.login-top .head-img2',function(e){
+        e.stopPropagation();
+        if($('.login-top .head-img2 div').css("display")=="block"){
+            $('.login-top .head-img2 .logout').slideUp();
+        }else{
+            console.log("~~~~~~~~aa~b~~~");
+
+            $.ajax({
+                url: "/s/getSxManage",
+                type: "POST",
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    var html = "";
+                    if (result["success"]) {
+                       var list = result.data;
+                       for(var i=0;i<list.length;i++){
+                            html+="<a class='sx_a' title='"+list[i].title+"' style='display: block;line-height:22.5px;' href='/s/selectStudent?suffix="+list[i].suffix+"'>"+list[i].title+"</a>";
+                       }
+
+                     $("#showSx").html(html);
+
+                    } else {
+                        // layer.msg(result['msg'], {time: 2000});
+
+                            html ="<a class='sx_a' style='display: block;line-height:22.5px;'>暂无可用的双选系统</a>";
+
+                        $("#showSx").html(html);
+                    }
+
+                },
+                error: function () {
+                    layer.open({
+                        content: '加载学校数据异常，联系管理员',
+                        skin: 'msg'
+                    });
+                }
+            });
+
+
+            $('.login-top .head-img2 .logout').slideDown();
+        }
+
+    })
+
+    $('.login-top .head-img2 .logout').click(function(e){
+        e.stopPropagation();
+        $('.login-top .head-img2 .logout').slideUp();
+    })
+
+    $(document).on('click', function () {
+        $('.login-top .head-img2 .logout').slideUp();
+    })
+})

@@ -1,0 +1,9 @@
+﻿.gallery h4{
+	text-align:center;
+}
+.gallery_text{
+	padding: 10px 15px;
+    font-size: 12px;
+    background-color: #efefef;
+	height:267px;
+}
